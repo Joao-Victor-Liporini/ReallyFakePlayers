@@ -125,14 +125,16 @@ public class FakePlayerManager {
             @Override
             public void run() {
                 List<String> groups = TitanBoxRFP.configManager.getGroups();
-                if (groups.size() == 0) {
-                    removeOldGroups(npc);
-                    TitanBoxRFP.permission.playerAddGroup(null, npc.getCraftPlayer(), "default");
-                }
-                else
-                {
-                    removeOldGroups(npc);
-                    TitanBoxRFP.permission.playerAddGroup(null, npc.getCraftPlayer(), groups.get(random.nextInt(groups.size())));
+                if (TitanBoxRFP.isVaultInstalled()) {
+                    if (groups.size() == 0) {
+                        removeOldGroups(npc);
+                        TitanBoxRFP.permission.playerAddGroup(null, npc.getCraftPlayer(), "default");
+                    }
+                    else
+                    {
+                        removeOldGroups(npc);
+                        TitanBoxRFP.permission.playerAddGroup(null, npc.getCraftPlayer(), groups.get(random.nextInt(groups.size())));
+                    }
                 }
                 npc.setTextFormat();
             }

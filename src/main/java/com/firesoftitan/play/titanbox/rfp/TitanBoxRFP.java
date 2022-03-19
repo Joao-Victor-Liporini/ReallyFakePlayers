@@ -33,6 +33,7 @@ public class TitanBoxRFP extends JavaPlugin {
     public static MainListener mainListener;
     public static FakePlayerManager fakePlayerManager;
     public static Permission permission;
+    private static boolean isVaultInstalled;
     public static boolean update = false;
     public void onEnable() {
         instants = this;
@@ -44,8 +45,8 @@ public class TitanBoxRFP extends JavaPlugin {
 
         configManager = new ConfigManager();
         fakePlayerManager = new FakePlayerManager();
-
-        if (TitanBoxRFP.isVaultInstalled())
+        isVaultInstalled = Bukkit.getPluginManager().isPluginEnabled("Vault");
+        if (isVaultInstalled)
         {
             RegisteredServiceProvider<Permission> permissionProvider = Bukkit.getServer().getServicesManager().getRegistration(net.milkbowl.vault.permission.Permission.class);
             permission = permissionProvider.getProvider();
@@ -110,8 +111,7 @@ public class TitanBoxRFP extends JavaPlugin {
     }
     public static boolean isVaultInstalled()
     {
-        Plugin vault = Bukkit.getPluginManager().getPlugin("Vault");
-        return vault != null;
+        return isVaultInstalled;
     }
     public static boolean hasAdminPermission(CommandSender sender)
     {
