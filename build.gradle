@@ -1,0 +1,71 @@
+plugins {
+	id 'java'
+}
+
+group = 'com.firesoftitan.play.titanbox.rfp'
+version = '1.11.1_171'
+description = 'ReallyFakePlayers'
+java.sourceCompatibility = JavaVersion.VERSION_17
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+
+	maven {
+		url 'https://hub.spigotmc.org/nexus/content/repositories/public/'
+		content {
+		  includeGroup 'org.bukkit'
+		  includeGroup 'org.spigotmc'
+		  includeGroup 'net.md-5'
+		}
+	}
+	maven {
+		url = 'https://jitpack.io'
+		content {
+		  includeGroup 'com.github.MilkBowl'
+		}
+	}
+}
+
+dependencies {
+	compileOnly 'org.spigotmc:spigot:1.18.2-R0.1-SNAPSHOT'
+    compileOnly 'com.github.MilkBowl:VaultAPI:1.7'
+	
+}
+
+jar {
+	archiveFileName = 'ReallyFakePlayers.jar'
+	destinationDirectory = file('build')
+	
+	manifest {
+		attributes "Version": project.version
+	}
+}
+
+sourceSets {
+	main {
+		java {
+			srcDirs = ['src/main/java']
+		}
+		resources {
+			srcDirs = ['src/main/resources']
+		}
+	}
+}
+
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+processResources {
+	outputs.upToDateWhen { false }
+	filter org.apache.tools.ant.filters.ReplaceTokens, tokens: [
+	   "plugin_version": version
+	]
+}
+
+task printVersion {
+    doLast {
+        println version
+    }
+}
