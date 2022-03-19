@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'com.firesoftitan.play.titanbox.rfp'
-version = '1.11.1_171'
+version = '1.11.2'
 description = 'ReallyFakePlayers'
 java.sourceCompatibility = JavaVersion.VERSION_17
 

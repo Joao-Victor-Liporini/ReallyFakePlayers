@@ -3,7 +3,7 @@ main: com.firesoftitan.play.titanbox.rfp.TitanBoxRFP
 version: @plugin_version@
 author: [freethemice, Tristiisch]
 softdepend: [Vault]
-api-version: 1.13
+api-version: 1.18
 commands:
   TRFP:
     description: ReallyFakePlayerCommands

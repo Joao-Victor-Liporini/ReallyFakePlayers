@@ -279,6 +279,9 @@ public class FakePlayerManager {
         if (player != null)
         {
             for (FakePlayerInfo pl: getPlayerInfoList()) {
+            	EntityPlayer entityPlayer = ((CraftPlayer) player).getHandle();
+            	if (entityPlayer == null) // Can be null if real player was kick at PlayerLoginEvent
+            		continue;
             	// b.a = sendPacket
                 ((CraftPlayer) player).getHandle().b.a(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.a, pl.getEntityPlayer())); //ADD_PLAYER
             }
