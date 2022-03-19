@@ -72,7 +72,7 @@ public class ConfigManager {
                         configFile.save();
                         groups = configFile.getStringListFromText("settings.groups");
                     }
-                }.runTaskLater(TitanBoxRFP.instants, 1);
+                }.runTaskLaterAsynchronously(TitanBoxRFP.instants, 1);
 
             }
         }

@@ -136,7 +136,7 @@ public class FakePlayerManager {
                 }
                 npc.setTextFormat();
             }
-        }.runTaskLater(TitanBoxRFP.instants, 1);
+        }.runTaskLaterAsynchronously(TitanBoxRFP.instants, 1);
 
         PlayerJoinEvent playerJoinEvent = new PlayerJoinEvent(npc.getCraftPlayer(), joinMessage);
         Bukkit.getPluginManager().callEvent(playerJoinEvent);
