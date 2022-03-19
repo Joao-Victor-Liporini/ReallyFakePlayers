@@ -8,7 +8,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.craftbukkit.v1_17_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_18_R2.inventory.CraftItemStack;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 
@@ -50,7 +50,7 @@ public class SaveManager {
         {
             try {
                 String item = config.getString("x");
-                NBTTagCompound item2 = MojangsonParser.parse(item);
+                NBTTagCompound item2 = MojangsonParser.a(item);
                 outItem = CraftItemStack.asBukkitCopy(net.minecraft.world.item.ItemStack.a(item2));
             } catch (CommandSyntaxException e) {
 //            e.printStackTrace();
@@ -223,9 +223,11 @@ public class SaveManager {
     public static String encode(ItemStack itemStack) {
         String configString = "";
         YamlConfiguration config = null;
-        NBTTagCompound item = CraftItemStack.asNMSCopy(itemStack).save(new NBTTagCompound());
+        // b = save
+        NBTTagCompound item = CraftItemStack.asNMSCopy(itemStack).b(new NBTTagCompound());
         config = new YamlConfiguration();
-        config.set("x", item.asString());
+//      config.set("x", item.asString());
+        config.set("x", item.toString());
         configString = config.saveToString();
         byte[] configBytes = configString.getBytes(StandardCharsets.UTF_8);
         String out = Base64.getEncoder().encodeToString(configBytes);

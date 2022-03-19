@@ -7,11 +7,12 @@ import com.firesoftitan.play.titanbox.rfp.managers.ConfigManager;
 import com.firesoftitan.play.titanbox.rfp.managers.FakePlayerManager;
 import com.firesoftitan.play.titanbox.rfp.runnables.AutoLogerRunnable;
 import net.milkbowl.vault.permission.Permission;
+
+import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.libs.org.apache.commons.io.FileUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;

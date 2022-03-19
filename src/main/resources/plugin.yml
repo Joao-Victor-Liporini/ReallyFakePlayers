@@ -1,6 +1,6 @@
 name: TitanBoxRFP
 main: com.firesoftitan.play.titanbox.rfp.TitanBoxRFP
-version: 1.11.1_171
+version: @plugin_version@
 author: [freethemice]
 softdepend: [Vault]
 api-version: 1.13

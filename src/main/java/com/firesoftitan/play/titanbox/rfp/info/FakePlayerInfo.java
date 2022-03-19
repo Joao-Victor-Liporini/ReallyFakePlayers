@@ -13,9 +13,9 @@ import net.minecraft.server.network.PlayerConnection;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
-import org.bukkit.craftbukkit.v1_17_R1.CraftServer;
-import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_18_R2.CraftServer;
+import org.bukkit.craftbukkit.v1_18_R2.CraftWorld;
+import org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -164,7 +164,7 @@ public class FakePlayerInfo {
 
     public GameProfile getGameProfile()
     {
-        return this.entityPlayer.getProfile();
+        return this.entityPlayer.getBukkitEntity().getProfile();
     }
     public PlayerConnection getConnection()
     {
@@ -211,7 +211,7 @@ public class FakePlayerInfo {
     {
 
         EntityPlayer npc = this.getEntityPlayer();
-        GameProfile gameProfile = npc.getProfile();
+        GameProfile gameProfile = npc.getBukkitEntity().getProfile();
         PropertyMap properties = gameProfile.getProperties();
         properties.clear();
         properties.put("textures", property);
@@ -242,10 +242,10 @@ public class FakePlayerInfo {
     }
 
     public String getName() {
-        return entityPlayer.getName();
+        return entityPlayer.getBukkitEntity().getName();
     }
 
     public UUID getUniqueID() {
-        return entityPlayer.getUniqueID();
+        return entityPlayer.getBukkitEntity().getUniqueId();
     }
 }

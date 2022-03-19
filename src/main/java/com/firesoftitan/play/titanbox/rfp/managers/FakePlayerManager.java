@@ -9,9 +9,9 @@ import net.minecraft.server.level.EntityPlayer;
 import net.minecraft.server.players.PlayerList;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.craftbukkit.v1_17_R1.CraftServer;
-import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_17_R1.util.CraftChatMessage;
+import org.bukkit.craftbukkit.v1_18_R2.CraftServer;
+import org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_18_R2.util.CraftChatMessage;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -29,7 +29,8 @@ public class FakePlayerManager {
     public FakePlayerManager() {
         playerHashMap = new HashMap<String, FakePlayerInfo>();
 
-        DedicatedPlayerList playerList = ((CraftServer) Bukkit.getServer()).getServer().getPlayerList();
+        // bf = getPlayerList
+        DedicatedPlayerList playerList = ((CraftServer) Bukkit.getServer()).getServer().bf();
 
         Field privateStringField = null;
         try {
@@ -116,8 +117,9 @@ public class FakePlayerManager {
         npc.setSkin(TitanBoxRFP.configManager.getRandomSkin());
         playerHashMap.put(name, npc);
         playerListFree.add(npc.getEntityPlayer());
-        onlineListFree.put(npc.getEntityPlayer().getUniqueID(), npc.getEntityPlayer());
-        ChatMessage chatmessage = new ChatMessage("multiplayer.player.joined", new Object[]{npc.getEntityPlayer().getScoreboardDisplayName()});
+        onlineListFree.put(npc.getEntityPlayer().getBukkitEntity().getUniqueId(), npc.getEntityPlayer());
+        // co = getScoreboardDisplayName
+        ChatMessage chatmessage = new ChatMessage("multiplayer.player.joined", new Object[]{npc.getEntityPlayer().co()});
         String joinMessage = CraftChatMessage.fromComponent(chatmessage);
         new BukkitRunnable() {
             @Override
@@ -233,7 +235,8 @@ public class FakePlayerManager {
                 }*/
                 try {
                     for (Player all : Bukkit.getOnlinePlayers()) {
-                        ((CraftPlayer) all).getHandle().b.sendPacket(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.e, npc.getEntityPlayer())); //REMOVE PLAYER
+                    	// b.a = sendPacket
+                        ((CraftPlayer) all).getHandle().b.a(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.e, npc.getEntityPlayer())); //REMOVE PLAYER
                     }
                 }
                 catch (Exception e)
@@ -274,7 +277,8 @@ public class FakePlayerManager {
         if (player != null)
         {
             for (FakePlayerInfo pl: getPlayerInfoList()) {
-                ((CraftPlayer) player).getHandle().b.sendPacket(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.a, pl.getEntityPlayer())); //ADD_PLAYER
+            	// b.a = sendPacket
+                ((CraftPlayer) player).getHandle().b.a(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.a, pl.getEntityPlayer())); //ADD_PLAYER
             }
         }
     }

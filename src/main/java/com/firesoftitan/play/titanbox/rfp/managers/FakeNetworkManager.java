@@ -8,8 +8,10 @@ public class FakeNetworkManager  extends NetworkManager {
     public FakeNetworkManager(EnumProtocolDirection enumprotocoldirection) {
         super(enumprotocoldirection);
     }
+
+    // stopReading
     @Override
-    public void stopReading() {
+    public void m() {
 
     }
 

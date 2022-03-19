@@ -11,20 +11,26 @@ import javax.annotation.Nullable;
 public class FakeNetworkManager  extends NetworkManager {
     public FakeNetworkManager(EnumProtocolDirection enumprotocoldirection) {
         super(enumprotocoldirection);
-        this.k = new FakeChannel();
-        this.l = this.k.remoteAddress();
+        this.m = new FakeChannel();
+        this.n = this.m.remoteAddress();
         this.preparing = false;
     }
+    
+    // stopReading
     @Override
-    public void stopReading() {
+    public void m() {
 
     }
+    
+    //sendPacket
     @Override
-    public void sendPacket(Packet<?> packet) {
+    public void a(Packet<?> packet) {
 
     }
+    
+    //sendPacket
     @Override
-    public void sendPacket(Packet<?> packet, @Nullable GenericFutureListener<? extends Future<? super Void>> genericfuturelistener) {
+    public void a(Packet<?> packet, @Nullable GenericFutureListener<? extends Future<? super Void>> genericfuturelistener) {
 
 
     }
