@@ -57,7 +57,7 @@ public class TitanBoxRFP extends JavaPlugin {
             sendMessageSystem(TitanBoxRFP.this, "No Vault Installed!");
         }
 
-        new BukkitRunnable() {
+        /*new BukkitRunnable() {
             @Override
             public void run() {
                 new AutoUpdateManager(TitanBoxRFP.this, 95927).getVersion(version -> {
@@ -70,7 +70,7 @@ public class TitanBoxRFP extends JavaPlugin {
                     }
                 });
             }
-        }.runTaskLater(this,20);
+        }.runTaskLater(this,20);*/
 
 
         TitanBoxRFP.instants.setupAutoSpawn();

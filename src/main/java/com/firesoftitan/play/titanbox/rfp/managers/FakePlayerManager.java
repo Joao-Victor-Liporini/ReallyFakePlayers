@@ -139,12 +139,12 @@ public class FakePlayerManager {
                 npc.setTextFormat();
             }
         }.runTaskLaterAsynchronously(TitanBoxRFP.instants, 1);
-
+        String playername = name;
         PlayerJoinEvent playerJoinEvent = new PlayerJoinEvent(npc.getCraftPlayer(), joinMessage);
         Bukkit.getPluginManager().callEvent(playerJoinEvent);
 
         String joining = playerJoinEvent.getJoinMessage();
-        if (joining == null || joining.length() < 1) joining = ChatColor.YELLOW + name + " joined the game.";
+        if (joining == null || joining.length() < 1) joining = ChatColor.YELLOW + playername + " joined the game.";
         joinMessage = ChatColor.YELLOW + ChatColor.translateAlternateColorCodes('&',joining);
 
         Set<Player> playerSet = new HashSet<Player>(Bukkit.getOnlinePlayers());
@@ -161,7 +161,7 @@ public class FakePlayerManager {
                 player.sendMessage(joinMessage);
             }
         }
-        if (welcome) this.welcomePlayer(npc.getCraftPlayer());
+        if (welcome) welcomePlayer(npc.getCraftPlayer());
     }
 
     private void removeOldGroups(FakePlayerInfo npc) {
@@ -178,16 +178,21 @@ public class FakePlayerManager {
     }
     public void addMore(int number)
     {
-        boolean welcome = false;
-        if (number == 1) welcome = true;
-        for(int i = 0; i < number; i++)
-        {
-            String nameF = getRandomName();
-            add(nameF, welcome);
-        }
-        for(Player all: Bukkit.getOnlinePlayers()) {
-            showList(all);
-        }
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                boolean welcome = false;
+                if (number == 1) welcome = true;
+    	        for(int i = 0; i < number; i++)
+    	        {
+    	            String nameF = getRandomName();
+    	            add(nameF, welcome);
+    	        }
+    	        for(Player all: Bukkit.getOnlinePlayers()) {
+    	            showList(all);
+    	        }
+            }
+        }.runTaskAsynchronously(TitanBoxRFP.instants);
     }
     public boolean contains(String name)
     {
