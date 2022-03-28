@@ -140,28 +140,33 @@ public class FakePlayerManager {
             }
         }.runTaskLaterAsynchronously(TitanBoxRFP.instants, 1);
         String playername = name;
-        PlayerJoinEvent playerJoinEvent = new PlayerJoinEvent(npc.getCraftPlayer(), joinMessage);
-        Bukkit.getPluginManager().callEvent(playerJoinEvent);
-
-        String joining = playerJoinEvent.getJoinMessage();
-        if (joining == null || joining.length() < 1) joining = ChatColor.YELLOW + playername + " joined the game.";
-        joinMessage = ChatColor.YELLOW + ChatColor.translateAlternateColorCodes('&',joining);
-
-        Set<Player> playerSet = new HashSet<Player>(Bukkit.getOnlinePlayers());
-        for(Player player: playerSet) {
-            if (TitanBoxRFP.configManager.isOpsFakeTag()) {
-                if (TitanBoxRFP.hasAdminPermission(player) || player.hasPermission("titanbox.rfp.show")) {
-                    player.sendMessage(joinMessage + ChatColor.GRAY + " [Fake Player]");
-                } else {
-                    player.sendMessage(joinMessage);
-                }
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+		        PlayerJoinEvent playerJoinEvent = new PlayerJoinEvent(npc.getCraftPlayer(), joinMessage);
+		        Bukkit.getPluginManager().callEvent(playerJoinEvent);
+		
+		        String joining = playerJoinEvent.getJoinMessage();
+		        if (joining == null || joining.length() < 1) joining = ChatColor.YELLOW + playername + " joined the game.";
+		        String joinMessage = ChatColor.YELLOW + ChatColor.translateAlternateColorCodes('&',joining);
+		
+		        Set<Player> playerSet = new HashSet<Player>(Bukkit.getOnlinePlayers());
+		        for(Player player: playerSet) {
+		            if (TitanBoxRFP.configManager.isOpsFakeTag()) {
+		                if (TitanBoxRFP.hasAdminPermission(player) || player.hasPermission("titanbox.rfp.show")) {
+		                    player.sendMessage(joinMessage + ChatColor.GRAY + " [Fake Player]");
+		                } else {
+		                    player.sendMessage(joinMessage);
+		                }
+		            }
+		            else
+		            {
+		                player.sendMessage(joinMessage);
+		            }
+		        }
+		        if (welcome) welcomePlayer(npc.getCraftPlayer());
             }
-            else
-            {
-                player.sendMessage(joinMessage);
-            }
-        }
-        if (welcome) welcomePlayer(npc.getCraftPlayer());
+        }.runTaskLater(TitanBoxRFP.instants, 1);
     }
 
     private void removeOldGroups(FakePlayerInfo npc) {
